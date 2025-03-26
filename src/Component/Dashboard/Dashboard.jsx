@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 
-// Custom HOC to inject navigate into class components
-const withNavigate = (Component) => {
+const withNavigate = () => {
   return (props) => {
     const navigate = useNavigate();
     return <Component {...props} navigate={navigate} />;
@@ -57,7 +56,7 @@ class Dashboard extends Component {
         }));
         console.log(`Employee with ID ${id} deleted`);
       } catch (error) {
-        alert('Failed to delete employee');
+        console.error("Error Occurred While Deleting: ", error)
       }
     }
   };

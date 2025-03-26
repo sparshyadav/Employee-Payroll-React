@@ -1,4 +1,3 @@
-// src/Component/Login/Login.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
@@ -9,7 +8,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLoginSuccess = (credentialResponse) => {
-    // Decode JWT token to get user info
     const token = credentialResponse.credential;
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -23,11 +21,9 @@ const Login = () => {
     const userData = JSON.parse(jsonPayload);
     const name = userData.name || userData.given_name || 'User';
     
-    // Store userName in localStorage
     localStorage.setItem('userName', name);
     console.log("Login Success:", userData);
 
-    // Redirect to dashboard
     navigate('/dashboard');
   };
 

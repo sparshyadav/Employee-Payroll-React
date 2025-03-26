@@ -7,8 +7,7 @@ import person4 from '../../assets/person4.jpeg';
 import Header from '../Header/Header';
 import axios from 'axios';
 
-// Custom HOC to inject navigate and location
-const withRouter = (Component) => {
+const withRouter = () => {
   return (props) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -59,31 +58,20 @@ class Registration extends Component {
     e.preventDefault();
     const { id, name, profileImage, gender, department, salary, day, month, year, notes, isEdit } = this.state;
 
-    if (!name || !profileImage || !gender || department.length === 0 || !salary || !day || !month || !year) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-
     const startDate = `${day}-${month}-${year}`;
     const employeeData = { name, profileImage, gender, departments: department, salary, startDate, notes };
 
     try {
       if (isEdit) {
-        const response = await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
-        if (response.status === 200) {
-          alert('Employee updated successfully!');
-        }
+        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
+        
       } else {
-        const response = await axios.post('http://localhost:3001/EmpList', employeeData);
-        if (response.status === 201) {
-          alert('Employee added successfully!');
-        }
+        await axios.post('http://localhost:3001/EmpList', employeeData);
       }
       this.handleReset();
       this.props.navigate('/dashboard');
     } catch (error) {
       console.error('Submission error:', error);
-      alert(`Something went wrong while ${isEdit ? 'updating' : 'saving'} employee data.`);
     }
   };
 

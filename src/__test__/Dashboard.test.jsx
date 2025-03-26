@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
@@ -35,7 +36,7 @@ describe('Dashboard Component', () => {
     const mockEmployees = [
       {
         id: 1,
-        name: 'aman',
+        name: 'Sparsh',
         gender: 'Male',
         departments: ['IT'],
         salary: 50000,
@@ -51,7 +52,7 @@ describe('Dashboard Component', () => {
     renderWithRouter(<Dashboard />);
     
     await waitFor(() => {
-      expect(screen.getByText('aman')).toBeInTheDocument();
+      expect(screen.getByText('Sparsh')).toBeInTheDocument();
       expect(screen.getByText('Male')).toBeInTheDocument();
       expect(screen.getByText('IT')).toBeInTheDocument();
       expect(screen.getByText('50000')).toBeInTheDocument();
@@ -71,7 +72,7 @@ describe('Dashboard Component', () => {
 
   test('filters employees based on search term', async () => {
     const mockEmployees = [
-      { id: 1, name: 'aman', gender: 'Male', departments: ['IT'], salary: 50000, startDate: '2023-01-01' },
+      { id: 1, name: 'Sparsh', gender: 'Male', departments: ['IT'], salary: 50000, startDate: '2023-01-01' },
       { id: 2, name: 'Harsh', gender: 'Female', departments: ['HR'], salary: 55000, startDate: '2023-02-01' },
     ];
     fetch.mockResolvedValueOnce({
@@ -82,15 +83,15 @@ describe('Dashboard Component', () => {
     renderWithRouter(<Dashboard />);
     
     await waitFor(() => {
-      expect(screen.getByText('aman')).toBeInTheDocument();
+      expect(screen.getByText('Sparsh')).toBeInTheDocument();
       expect(screen.getByText('Harsh')).toBeInTheDocument();
     });
 
     fireEvent.change(screen.getByPlaceholderText('Search by name...'), {
-      target: { value: 'aman' },
+      target: { value: 'Sparsh' },
     });
 
-    expect(screen.getByText('aman')).toBeInTheDocument();
+    expect(screen.getByText('Sparsh')).toBeInTheDocument();
     expect(screen.queryByText('Harsh')).not.toBeInTheDocument();
   });
 
@@ -113,7 +114,7 @@ describe('Dashboard Component', () => {
   test('handles edit button click', async () => {
     const mockEmployee = {
       id: 1,
-      name: 'aman',
+      name: 'Sparsh',
       gender: 'Male',
       departments: ['IT'],
       salary: 50000,
@@ -127,7 +128,7 @@ describe('Dashboard Component', () => {
     renderWithRouter(<Dashboard />);
     
     await waitFor(() => {
-      expect(screen.getByText('aman')).toBeInTheDocument();
+      expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('Edit'));
@@ -139,7 +140,7 @@ describe('Dashboard Component', () => {
   test('handles delete button click with confirmation', async () => {
     const mockEmployee = {
       id: 1,
-      name: 'aman',
+      name: 'Sparsh',
       gender: 'Male',
       departments: ['IT'],
       salary: 50000,
@@ -159,21 +160,21 @@ describe('Dashboard Component', () => {
     renderWithRouter(<Dashboard />);
     
     await waitFor(() => {
-      expect(screen.getByText('aman')).toBeInTheDocument();
+      expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('Delete'));
     
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('http://localhost:3001/EmpList/1', { method: 'DELETE' });
-      expect(screen.queryByText('aman')).not.toBeInTheDocument();
+      expect(screen.queryByText('Sparsh')).not.toBeInTheDocument();
     });
   });
 
   test('shows error when delete fails', async () => {
     const mockEmployee = {
       id: 1,
-      name: 'aman',
+      name: 'Sparsh',
       gender: 'Male',
       departments: ['IT'],
       salary: 50000,
@@ -192,7 +193,7 @@ describe('Dashboard Component', () => {
     renderWithRouter(<Dashboard />);
     
     await waitFor(() => {
-      expect(screen.getByText('aman')).toBeInTheDocument();
+      expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('Delete'));

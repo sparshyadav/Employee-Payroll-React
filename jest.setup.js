@@ -1,9 +1,5 @@
-// import '@testing-library/jest-dom';
-
-
-
-// jest.setup.js
-import '@testing-library/jest-dom'; // Keep this for Jest matchers
+/* eslint-disable no-undef */
+import '@testing-library/jest-dom'; 
 const { TextEncoder, TextDecoder } = require('text-encoding');
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
