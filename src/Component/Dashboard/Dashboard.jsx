@@ -94,7 +94,7 @@ class Dashboard extends Component {
               />
               <button
                 onClick={this.handleAddUser}
-                className="bg-[#8BC34A] text-white border-none rounded px-5 py-2.5 text-base hover:bg-[#7CB342] w-full md:w-auto"
+                className="bg-[#8BC34A] text-white border-none rounded px-5 py-2.5 text-base hover:bg-[#7CB342]"
               >
                 Add User
               </button>

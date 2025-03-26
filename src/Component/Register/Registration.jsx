@@ -133,50 +133,71 @@ class Registration extends Component {
                 {isEdit ? 'Update Employee' : 'Employee Payroll Form'}
               </h2>
               <div className="flex flex-col gap-7">
-                <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <label htmlFor="name" className="w-1/3">Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={this.handleInputChange}
-                    required
-                    pattern="[A-Za-z\s]+"
-                    title="Only letters are allowed"
-                    className="w-full md:w-2/3 h-10 p-2 border border-gray-300 rounded"
-                  />
+                <div className="flex items-center gap-4 flex-col md:flex-row">
+                  <label
+                    htmlFor="name"
+                    className="w-full flex justify-start md:w-1/3 md:text-right font-medium text-gray-700 transition-all duration-300"
+                  >
+                    Name
+                  </label>
+                  <div className="w-full md:w-2/3">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={name}
+                      onChange={this.handleInputChange}
+                      required
+                      pattern="[A-Za-z\s]+"
+                      title="Only letters are allowed"
+                      placeholder="Enter your full name"
+                      className="w-full h-10 p-2 border border-gray-300 rounded 
+        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+        transition-all duration-300 ease-in-out 
+        hover:border-blue-300"
+                    />
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2 md:flex-row flex-col">
-                  <label className="w-1/3">Profile Image</label>
-                  <div className="flex gap-6 md:w-2/3 flex-col md:flex-row">
+                <div className="flex items-center gap-2 flex-col md:flex-row">
+                  <label className="flex justify-start w-full md:w-1/3 text-left md:text-right font-medium text-gray-700">
+                    Profile Image
+                  </label>
+                  <div className="w-full md:w-2/3 flex flex-wrap justify-center md:justify-start gap-4">
                     {[
                       { value: '/Assets/person1.jpeg', src: person2 },
                       { value: '/Assets/person2.jpeg', src: person1 },
                       { value: '/Assets/person3.jpeg', src: person3 },
                       { value: '/Assets/person4.jpeg', src: person4 },
                     ].map((img, index) => (
-                      <label key={index} className="flex gap-3 items-center">
+                      <label
+                        key={index}
+                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-all duration-300"
+                      >
                         <input
                           type="radio"
                           name="profileImage"
                           value={img.value}
                           checked={profileImage === img.value}
                           onChange={this.handleInputChange}
-                          className="w-5 h-5"
+                          className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
                         />
-                        <img src={img.src} alt={`Profile ${index + 1}`} className="w-8 h-8 rounded-full" />
+                        <img
+                          src={img.src}
+                          alt={`Profile ${index + 1}`}
+                          className="w-10 h-10 rounded-full object-cover border-2 transition-all duration-300 
+          ${profileImage === img.value ? 'border-blue-500' : 'border-transparent'}"
+                        />
                       </label>
                     ))}
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <div className="w-1/3">
+                  <div className="md:w-1/3 w-full text-gray-700 font-medium">
                     <label>Gender</label>
                   </div>
-                  <div className="flex gap-6 md:w-2/3 flex-col md:flex-row">
+                  <div className="flex gap-6 md:w-2/3 w-full md:flex-row">
                     {['male', 'female'].map((genderOption) => (
                       <label key={genderOption} className="flex gap-3 items-center">
                         <input
@@ -193,18 +214,23 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <label className="w-1/3">Department</label>
-                  <div className="flex gap-4 md:w-2/3 flex-col md:flex-row">
+                <div className="flex items-center gap-2 flex-col md:flex-row">
+                  <label className="flex justify-start w-full md:w-1/3 text-left md:text-right font-medium text-gray-700">
+                    Department
+                  </label>
+                  <div className="flex gap-4 md:w-2/3 md:flex-row flex-wrap justify-center md:justify-start">
                     {['HR', 'sales', 'finance', 'engineer', 'others'].map((dept) => (
-                      <label key={dept} className="flex gap-2 items-center">
+                      <label
+                        key={dept}
+                        className="flex gap-2 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-all duration-300"
+                      >
                         <input
                           type="checkbox"
                           name="department"
                           value={dept}
                           checked={department.includes(dept)}
                           onChange={this.handleInputChange}
-                          className="w-5 h-5 border border-gray-300 rounded"
+                          className="w-5 h-5 border border-gray-300 rounded text-blue-600 focus:ring-2 focus:ring-blue-500"
                         />
                         <p>{dept.charAt(0).toUpperCase() + dept.slice(1)}</p>
                       </label>
@@ -213,7 +239,7 @@ class Registration extends Component {
                 </div>
 
                 <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <label htmlFor="salary" className="w-1/3">Select Salary</label>
+                  <label htmlFor="salary" className="w-full md:w-1/3 font-medium text-gray-700">Select Salary</label>
                   <div className="md:w-2/3 w-full">
                     <select
                       id="salary"
@@ -232,8 +258,8 @@ class Registration extends Component {
                 </div>
 
                 <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <label className="w-1/3">Start Date</label>
-                  <div className="flex gap-4 md:w-2/3 flex-col md:flex-row">
+                  <label className="w-full md:w-1/3 font-medium text-gray-700">Start Date</label>
+                  <div className="flex gap-4 md:w-2/3 w-full flex-col md:flex-row">
                     <select
                       id="day"
                       name="day"
@@ -284,7 +310,7 @@ class Registration extends Component {
                 </div>
 
                 <div className="flex gap-4 md:flex-row flex-col">
-                  <label className="w-1/3" htmlFor="notes">Notes</label>
+                  <label className="w-1/3 font-medium text-gray-700" htmlFor="notes">Notes</label>
                   <textarea
                     id="notes"
                     name="notes"
@@ -299,7 +325,7 @@ class Registration extends Component {
                     <button
                       type="button"
                       onClick={() => this.props.navigate('/dashboard')}
-                      className="w-full px-12 py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
+                      className="!w-full !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
                     >
                       Cancel
                     </button>
@@ -307,14 +333,14 @@ class Registration extends Component {
                   <div className="flex gap-4 flex-col md:flex-row w-full md:w-auto">
                     <button
                       type="submit"
-                      className="px-12 py-3 border border-gray-400 rounded bg-gray-200 hover:bg-[#82A70C] hover:text-white"
+                      className="!px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-[#82A70C] hover:text-white"
                     >
                       {isEdit ? 'Update' : 'Submit'}
                     </button>
                     <button
                       type="button"
                       onClick={this.handleReset}
-                      className="px-12 py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
+                      className="!px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
                     >
                       Reset
                     </button>
