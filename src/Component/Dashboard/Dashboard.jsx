@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 
-const withNavigate = () => {
+// Custom HOC to inject navigate into class components
+const withNavigate = (Component) => {
   return (props) => {
     const navigate = useNavigate();
     return <Component {...props} navigate={navigate} />;
@@ -56,7 +57,7 @@ class Dashboard extends Component {
         }));
         console.log(`Employee with ID ${id} deleted`);
       } catch (error) {
-        console.error("Error Occurred While Deleting: ", error)
+        alert('Failed to delete employee');
       }
     }
   };
@@ -100,7 +101,6 @@ class Dashboard extends Component {
             </div>
           </div>
 
-          {/* Table Section with Scrollable Container */}
           <div className="mt-2.5 overflow-x-auto">
             <div className="min-w-[768px]">
               <table className="w-full border-collapse">

@@ -1,28 +1,29 @@
 {
   "EmpList": [
     {
-      "id": "f55a",
-      "name": "bhanunnn",
-      "profileImage": "/Assets/person4.jpeg",
-      "gender": "female",
+      "name": "Sparsh Yadav",
+      "profileImage": "/Assets/person1.jpeg",
+      "gender": "male",
       "departments": [
-        "finance"
+        "finance",
+        "engineer"
       ],
-      "salary": "₹10,000",
-      "startDate": "13-08-2023",
-      "notes": "bnm"
+      "salary": "₹30,000",
+      "startDate": "03-05-2024",
+      "notes": "",
+      "id": "0f7c"
     },
     {
-      "name": "bnmrr",
+      "id": "fa72",
+      "name": "Rakshit Chauhan",
       "profileImage": "/Assets/person4.jpeg",
-      "gender": "female",
+      "gender": "male",
       "departments": [
         "finance"
       ],
-      "salary": "₹10,000",
-      "startDate": "12-10-2022",
-      "notes": "xcvbnm,",
-      "id": "f373"
+      "salary": "₹20,000",
+      "startDate": "07-07-2025",
+      "notes": ""
     }
   ]
 }

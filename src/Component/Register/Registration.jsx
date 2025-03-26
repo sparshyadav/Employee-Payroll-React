@@ -7,7 +7,8 @@ import person4 from '../../assets/person4.jpeg';
 import Header from '../Header/Header';
 import axios from 'axios';
 
-const withRouter = () => {
+// Custom HOC to inject navigate and location
+const withRouter = (Component) => {
   return (props) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -58,20 +59,31 @@ class Registration extends Component {
     e.preventDefault();
     const { id, name, profileImage, gender, department, salary, day, month, year, notes, isEdit } = this.state;
 
+    if (!name || !profileImage || !gender || department.length === 0 || !salary || !day || !month || !year) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
     const startDate = `${day}-${month}-${year}`;
     const employeeData = { name, profileImage, gender, departments: department, salary, startDate, notes };
 
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
-        
+        const response = await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
+        if (response.status === 200) {
+          alert('Employee updated successfully!');
+        }
       } else {
-        await axios.post('http://localhost:3001/EmpList', employeeData);
+        const response = await axios.post('http://localhost:3001/EmpList', employeeData);
+        if (response.status === 201) {
+          alert('Employee added successfully!');
+        }
       }
       this.handleReset();
       this.props.navigate('/dashboard');
     } catch (error) {
       console.error('Submission error:', error);
+      alert(`Something went wrong while ${isEdit ? 'updating' : 'saving'} employee data.`);
     }
   };
 
@@ -121,7 +133,6 @@ class Registration extends Component {
                 {isEdit ? 'Update Employee' : 'Employee Payroll Form'}
               </h2>
               <div className="flex flex-col gap-7">
-                {/* Name Field */}
                 <div className="flex items-center gap-4 md:flex-row flex-col">
                   <label htmlFor="name" className="w-1/3">Name</label>
                   <input
@@ -137,7 +148,6 @@ class Registration extends Component {
                   />
                 </div>
 
-                {/* Profile Image Field */}
                 <div className="flex items-center gap-2 md:flex-row flex-col">
                   <label className="w-1/3">Profile Image</label>
                   <div className="flex gap-6 md:w-2/3 flex-col md:flex-row">
@@ -162,7 +172,6 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                {/* Gender Field */}
                 <div className="flex items-center gap-4 md:flex-row flex-col">
                   <div className="w-1/3">
                     <label>Gender</label>
@@ -184,7 +193,6 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                {/* Department Field */}
                 <div className="flex items-center gap-4 md:flex-row flex-col">
                   <label className="w-1/3">Department</label>
                   <div className="flex gap-4 md:w-2/3 flex-col md:flex-row">
@@ -204,7 +212,6 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                {/* Salary Field */}
                 <div className="flex items-center gap-4 md:flex-row flex-col">
                   <label htmlFor="salary" className="w-1/3">Select Salary</label>
                   <div className="md:w-2/3 w-full">
@@ -224,7 +231,6 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                {/* Start Date Field */}
                 <div className="flex items-center gap-4 md:flex-row flex-col">
                   <label className="w-1/3">Start Date</label>
                   <div className="flex gap-4 md:w-2/3 flex-col md:flex-row">
@@ -277,7 +283,6 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                {/* Notes Field */}
                 <div className="flex gap-4 md:flex-row flex-col">
                   <label className="w-1/3" htmlFor="notes">Notes</label>
                   <textarea
@@ -289,7 +294,6 @@ class Registration extends Component {
                   />
                 </div>
 
-                {/* Buttons */}
                 <div className="flex justify-between items-center flex-col md:flex-row gap-4">
                   <div>
                     <button
