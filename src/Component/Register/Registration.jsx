@@ -239,7 +239,6 @@ class Registration extends Component {
                       value={salary}
                       required
                       onChange={this.handleInputChange}
-                      required
                       className="w-full md:w-1/2 h-10 p-2 border border-gray-300 rounded text-[#42515F]"
                     >
                       <option value="" disabled>Select Salary</option>
