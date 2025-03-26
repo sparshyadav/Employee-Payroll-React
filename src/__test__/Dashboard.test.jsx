@@ -27,7 +27,7 @@ describe('Dashboard Component', () => {
   });
 
   test('renders loading state initially', () => {
-    fetch.mockImplementationOnce(() => new Promise(() => {})); 
+    fetch.mockImplementationOnce(() => new Promise(() => { }));
     renderWithRouter(<Dashboard />);
     expect(screen.getByText('Loading employees...')).toBeInTheDocument();
   });
@@ -50,7 +50,7 @@ describe('Dashboard Component', () => {
     });
 
     renderWithRouter(<Dashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
       expect(screen.getByText('Male')).toBeInTheDocument();
@@ -62,9 +62,9 @@ describe('Dashboard Component', () => {
 
   test('displays error message when fetch fails', async () => {
     fetch.mockRejectedValueOnce(new Error('Network error'));
-    
+
     renderWithRouter(<Dashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Error: Network error')).toBeInTheDocument();
     });
@@ -81,7 +81,7 @@ describe('Dashboard Component', () => {
     });
 
     renderWithRouter(<Dashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
       expect(screen.getByText('Harsh')).toBeInTheDocument();
@@ -102,7 +102,7 @@ describe('Dashboard Component', () => {
     });
 
     renderWithRouter(<Dashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('No employees found')).toBeInTheDocument();
     });
@@ -126,7 +126,7 @@ describe('Dashboard Component', () => {
     });
 
     renderWithRouter(<Dashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
@@ -154,17 +154,17 @@ describe('Dashboard Component', () => {
       ok: true,
     });
 
-    
+
     window.confirm = jest.fn(() => true);
 
     renderWithRouter(<Dashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('Delete'));
-    
+
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('http://localhost:3001/EmpList/1', { method: 'DELETE' });
       expect(screen.queryByText('Sparsh')).not.toBeInTheDocument();
@@ -186,23 +186,23 @@ describe('Dashboard Component', () => {
     });
     fetch.mockRejectedValueOnce(new Error('Delete failed'));
 
-    
     window.confirm = jest.fn(() => true);
-    window.alert = jest.fn();
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
 
     renderWithRouter(<Dashboard />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByText('Delete'));
-    
-    await waitFor(() => {
-      expect(window.alert).toHaveBeenCalledWith('Failed to delete employee');
-    });
-  });
 
+    await waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to delete employee', expect.any(Error));
+    });
+
+    consoleErrorSpy.mockRestore();
+  });
   test('renders header component', () => {
     fetch.mockResolvedValueOnce({
       ok: true,
@@ -210,7 +210,7 @@ describe('Dashboard Component', () => {
     });
 
     renderWithRouter(<Dashboard />);
-    
+
     expect(screen.getByTestId('mock-header')).toBeInTheDocument();
   });
 });

@@ -26,15 +26,16 @@
       "notes": ""
     },
     {
-      "id": "b7b6",
-      "name": "Amandeep ",
-      "profileImage": "/Assets/person2.jpeg",
+      "id": "593b",
+      "name": "Raghav Khattar ",
+      "profileImage": "/Assets/person3.jpeg",
       "gender": "male",
       "departments": [
+        "sales",
         "engineer"
       ],
       "salary": "₹20,000",
-      "startDate": "16-10-2023",
+      "startDate": "15-09-2024",
       "notes": ""
     }
   ]

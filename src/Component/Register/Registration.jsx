@@ -7,7 +7,6 @@ import person4 from '../../assets/person4.jpeg';
 import Header from '../Header/Header';
 import axios from 'axios';
 
-// Custom HOC to inject navigate and location
 const withRouter = (Component) => {
   return (props) => {
     const navigate = useNavigate();
@@ -31,6 +30,7 @@ class Registration extends Component {
       year: '',
       notes: '',
       isEdit: false,
+      // isModalOpen: false
     };
   }
 
@@ -123,21 +123,20 @@ class Registration extends Component {
       <div>
         <Header />
         <main className="flex flex-col items-center w-full min-h-screen">
-          <div className="w-full bg-gray-100 p-8 flex-1">
+          <div className="w-full bg-gray-100 !p-8 flex-1 justify-center items-center">
             <form
-              className="max-w-4xl mx-auto bg-white p-8 flex flex-col gap-14 text-[#42515F]"
+              className="max-w-4xl mx-auto bg-white !p-8 flex flex-col gap-14 text-[#42515F]"
               id="employeeForm"
               onSubmit={this.handleSubmit}
             >
               <h2 className="text-3xl font-bold text-[#42515F] capitalize">
                 {isEdit ? 'Update Employee' : 'Employee Payroll Form'}
               </h2>
-              <div className="flex flex-col gap-7">
+              <div className="flex flex-col gap-7 border border-red-600 !m-[25px]">
                 <div className="flex items-center gap-4 flex-col md:flex-row">
                   <label
                     htmlFor="name"
-                    className="w-full flex justify-start md:w-1/3 md:text-right font-medium text-gray-700 transition-all duration-300"
-                  >
+                    className="min-w-[16%] border flex justify-start md:!text-left font-medium text-gray-700 transition-all duration-300">
                     Name
                   </label>
                   <div className="w-full md:w-2/3">
@@ -325,7 +324,7 @@ class Registration extends Component {
                     <button
                       type="button"
                       onClick={() => this.props.navigate('/dashboard')}
-                      className="w-full md:w-auto !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
+                      className="w-full md:w-auto !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:text-white hover:bg-[#F76464]"
                     >
                       Cancel
                     </button>
@@ -334,6 +333,7 @@ class Registration extends Component {
                     <button
                       type="submit"
                       className="w-full md:w-auto !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-[#82A70C] hover:text-white"
+                      // onClick={this.setState({isModalOpen:true})}
                     >
                       {isEdit ? 'Update' : 'Submit'}
                     </button>
@@ -350,6 +350,35 @@ class Registration extends Component {
             </form>
           </div>
         </main>
+
+        {/* {this.state.isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div
+              className="absolute inset-0 bg-black opacity-50"
+              onClick={closeModal}
+            ></div>
+
+            <div className="bg-white rounded-lg shadow-xl z-50 w-96 p-6 relative">
+              <h2 className="text-xl font-bold mb-4 text-gray-800">Confirm User Addition</h2>
+              <p className="mb-6 text-gray-600">Are you sure you want to add this user to the system?</p>
+
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={closeModal}
+                  className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirmAddUser}
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        )} */}
       </div>
     );
   }

@@ -100,7 +100,7 @@ class Dashboard extends Component {
               </div>
               <button
                 onClick={this.handleAddUser}
-                className="flex items-center gap-2 bg-[#8BC34A] text-white border-none rounded px-5 py-2.5 text-base hover:bg-[#7CB342] transition-colors"
+                className="flex items-center gap-2 bg-[#82A70C] text-white border-none rounded px-5 py-2.5 text-base hover:bg-[#7CB342] transition-colors"
               >
                 <Plus className="w-5 h-5" />
                 Add User
