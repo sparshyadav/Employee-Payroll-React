@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import { Search, Plus, Trash2, Pencil } from 'lucide-react'
 
-// Custom HOC to inject navigate into class components
 const withNavigate = (Component) => {
   return (props) => {
     const navigate = useNavigate();
@@ -19,6 +18,8 @@ class Dashboard extends Component {
       employees: [],
       loading: false,
       error: null,
+      isModalOpen: false,
+      employeeIdToDelete: null
     };
   }
 
@@ -44,22 +45,27 @@ class Dashboard extends Component {
     this.setState({ searchTerm: e.target.value });
   };
 
-  handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this employee?')) {
-      try {
-        const response = await fetch(`http://localhost:3001/EmpList/${id}`, {
-          method: 'DELETE'
-        });
-        if (!response.ok) {
-          throw new Error('Failed to delete employee');
-        }
-        this.setState(prevState => ({
-          employees: prevState.employees.filter(emp => emp.id !== id)
-        }));
-        console.log(`Employee with ID ${id} deleted`);
-      } catch (error) {
-        console.error('Failed to delete employee', error);
+  handleDelete = (id) => {
+    this.setState({ isModalOpen: true, employeeIdToDelete: id });
+  };
+
+  confirmDelete = async () => {
+    const { employeeIdToDelete } = this.state;
+    try {
+      const response = await fetch(`http://localhost:3001/EmpList/${employeeIdToDelete}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete employee');
       }
+      this.setState(prevState => ({
+        employees: prevState.employees.filter(emp => emp.id !== employeeIdToDelete)
+      }));
+
+      this.setState({isModalOpen: false});
+      console.log(`Employee with ID ${employeeIdToDelete} deleted`);
+    } catch (error) {
+      console.error('Failed to delete employee', error);
     }
   };
 
@@ -169,15 +175,16 @@ class Dashboard extends Component {
                             <span
                               className="text-[#9CA3AF] hover:text-[#7CB342] cursor-pointer"
                               onClick={() => this.handleEdit(employee)}
-                              aria-label={"Edit"}
+                              aria-label="Edit employee"
                             >
-                              {/* <Pencil /> */}Edit
+                              <Pencil />
                             </span>
                             <span
                               className="text-[#9CA3AF] hover:text-red-600 cursor-pointer"
-                              onClick={() => this.handleDelete(employee.id)}
-                            >
-                              {/* <Trash2 aria-label={"Delete"} /> */}Delete
+                              onClick={() => this.handleDelete(employee.id)}                         
+                              aria-label="Delete employee"
+                              >
+                              <Trash2 aria-label={"Delete"} />
                             </span>
                           </div>
                         </td>
@@ -195,6 +202,29 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
+
+        {this.state.isModalOpen && (
+          <>
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50"></div>
+            <div className="fixed p-8 top-1/2 left-1/2 rounded-md transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 ">
+              <h2 className="text-xl font-bold text-[#42515F]">Are you sure you want to delete the employee?</h2>
+              <div className="flex justify-end gap-4 mt-4">
+                <button
+                  onClick={() => this.setState({ isModalOpen: false, employeeIdToDelete: null })}
+                  className="py-2 px-4 border border-[#969696] rounded cursor-pointer bg-[#82A70C] hover:bg-[#707070] text-white hover:text-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={this.confirmDelete}
+                  className="py-2 px-4 border border-[#969696] rounded cursor-pointer bg-[red] hover:bg-[#707070] text-white hover:text-white"
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     );
   }

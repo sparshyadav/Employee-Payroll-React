@@ -49,30 +49,6 @@
       "salary": "₹30,000",
       "startDate": "04-03-2023",
       "notes": ""
-    },
-    {
-      "id": "d80e",
-      "name": "Sparsh Yadav",
-      "profileImage": "/Assets/person1.jpeg",
-      "gender": "female",
-      "departments": [
-        "HR"
-      ],
-      "salary": "₹20,000",
-      "startDate": "17-11-2023",
-      "notes": ""
-    },
-    {
-      "id": "8829",
-      "name": "Rakshit",
-      "profileImage": "/Assets/person2.jpeg",
-      "gender": "male",
-      "departments": [
-        "HR"
-      ],
-      "salary": "₹10,000",
-      "startDate": "11-08-2025",
-      "notes": ""
     }
   ]
 }

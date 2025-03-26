@@ -122,7 +122,6 @@ class Registration extends Component {
             <form
               className="max-w-4xl mx-auto bg-white !p-8 flex flex-col gap-14 text-[#42515F]"
               id="employeeForm"
-            // onSubmit={this.handleSubmit}
             >
               <h2 className="text-3xl font-bold text-[#42515F] capitalize">
                 {isEdit ? 'Update Employee' : 'Employee Payroll Form'}

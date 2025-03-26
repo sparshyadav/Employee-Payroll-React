@@ -5,7 +5,6 @@ import Registration from '../Component/Register/Registration';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 
-// Polyfill TextEncoder/TextDecoder
 if (typeof global.TextEncoder === 'undefined') {
   const { TextEncoder, TextDecoder } = require('text-encoding');
   global.TextEncoder = TextEncoder;
@@ -14,20 +13,18 @@ if (typeof global.TextEncoder === 'undefined') {
 
 jest.mock('axios');
 
-// Mock image imports
 jest.mock('../../assets/person1.jpeg', () => '/mocked/person1.jpeg');
 jest.mock('../../assets/person2.jpeg', () => '/mocked/person2.jpeg');
 jest.mock('../../assets/person3.jpeg', () => '/mocked/person3.jpeg');
 jest.mock('../../assets/person4.jpeg', () => '/mocked/person4.jpeg');
 
-// Mock react-router-dom
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');
   return {
     ...originalModule,
     useNavigate: () => mockNavigate,
-    useLocation: () => ({ state: null }), // Default: no edit state
+    useLocation: () => ({ state: null }), 
   };
 });
 

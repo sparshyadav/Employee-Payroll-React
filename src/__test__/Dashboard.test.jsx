@@ -131,10 +131,7 @@ describe('Dashboard Component', () => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByText('Edit'));
-    // fireEvent.click(screen.getByText('Delete'));
-    // fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
-
+    fireEvent.click(screen.getByLabelText('Edit employee')); 
 
     expect(mockNavigate).toHaveBeenCalledWith('/registration', {
       state: { employee: mockEmployee, isEdit: true },
@@ -158,17 +155,18 @@ describe('Dashboard Component', () => {
       ok: true,
     });
 
-
-    window.confirm = jest.fn(() => true);
-
     renderWithRouter(<Dashboard />);
 
     await waitFor(() => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByText('Delete'));
-    // fireEvent.click(screen.getByRole('img', { name: 'Delete' }));
+    fireEvent.click(screen.getByLabelText('Delete employee')); 
+
+    await waitFor(() => {
+      expect(screen.getByText('Are you sure you want to delete the employee?')).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByText('Confirm'));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('http://localhost:3001/EmpList/1', { method: 'DELETE' });
@@ -191,7 +189,6 @@ describe('Dashboard Component', () => {
     });
     fetch.mockRejectedValueOnce(new Error('Delete failed'));
 
-    window.confirm = jest.fn(() => true);
     const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
 
     renderWithRouter(<Dashboard />);
@@ -200,8 +197,12 @@ describe('Dashboard Component', () => {
       expect(screen.getByText('Sparsh')).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getByText('Delete'));
-    // fireEvent.click(screen.getByRole('img', { name: 'Delete' }))
+    fireEvent.click(screen.getByLabelText('Delete employee')); 
+
+    await waitFor(() => {
+      expect(screen.getByText('Are you sure you want to delete the employee?')).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByText('Confirm'));
 
     await waitFor(() => {
       expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to delete employee', expect.any(Error));
