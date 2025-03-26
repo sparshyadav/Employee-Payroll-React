@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -103,26 +103,7 @@
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,24 +114,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,7 +132,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,64 +143,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/Component/Login/Login.jsx
-import React from "react";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 &nbsp;
-const clientId = <span class="cstat-no" title="statement not covered" >"707297926482-0ml46hhmnkq9rt0h67enc1ucler9dddn.apps.googleusercontent.com";</span>
+const clientId = <span class="cstat-no" title="statement not covered" >"41077750453-nekju1vnqo087736d3b0pffge7iblk61.apps.googleusercontent.com";</span>
 &nbsp;
 const Login = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
   const handleLoginSuccess = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>redentialResponse) =&gt; {</span>
-    // Decode JWT token to get user info
     const token = <span class="cstat-no" title="statement not covered" >credentialResponse.credential;</span>
-    const base64Url = <span class="cstat-no" title="statement not covered" >token.split('.')[1];</span>
-    const base64 = <span class="cstat-no" title="statement not covered" >base64Url.replace(/-/g, '+').replace(/_/g, '/');</span>
-    const jsonPayload = <span class="cstat-no" title="statement not covered" >decodeURIComponent(</span>
-      atob(base64)
-        .split('')
-        .map(<span class="fstat-no" title="function not covered" >(c</span>) =&gt; <span class="cstat-no" title="statement not covered" >'%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))</span>
-        .join('')
-    );
-    
-    const userData = <span class="cstat-no" title="statement not covered" >JSON.parse(jsonPayload);</span>
-    const name = <span class="cstat-no" title="statement not covered" >userData.name || userData.given_name || 'User';</span>
-    
-    // Store userName in localStorage
-<span class="cstat-no" title="statement not covered" >    localStorage.setItem('userName', name);</span>
+    const userData = <span class="cstat-no" title="statement not covered" >jwtDecode(token);</span>
+    const name = <span class="cstat-no" title="statement not covered" >userData.name || userData.given_name || "User";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    localStorage.setItem("userName", name);</span>
 <span class="cstat-no" title="statement not covered" >    console.log("Login Success:", userData);</span>
 &nbsp;
-    // Redirect to dashboard
-<span class="cstat-no" title="statement not covered" >    navigate('/dashboard');</span>
+<span class="cstat-no" title="statement not covered" >    navigate("/dashboard");</span>
   };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;GoogleOAuthProvider clientId={clientId}&gt;
-      &lt;div className="flex flex-col min-h-screen"&gt;
-        &lt;div className="flex flex-col items-center justify-center flex-grow bg-gradient-to-r from-indigo-500 to-purple-600 text-white"&gt;
-          &lt;h2 className="text-2xl mb-6"&gt;SSO Login with Google&lt;/h2&gt;
-          &lt;div className="rounded-lg overflow-hidden"&gt;
-            &lt;GoogleLogin
-              onSuccess={handleLoginSuccess}
-              onError={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >console.log("Login Failed")}</span>
-              render={<span class="fstat-no" title="function not covered" >(r</span>enderProps) =&gt; (
-<span class="cstat-no" title="statement not covered" >                &lt;button</span>
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                  className="bg-white text-gray-700 px-4 py-2 rounded flex items-center gap-2"
-                &gt;
-                  &lt;span&gt;Sign in with Google&lt;/span&gt;
-                &lt;/button&gt;
-              )}
-            /&gt;
+      &lt;div className="flex flex-col min-h-screen justify-center items-center"&gt;
+        &lt;div className='border rounded-[3px] h-[150px] w-[300px] bg-white !py-[10px]'&gt;
+          &lt;div className="flex flex-col items-center justify-center flex-grow text-black"&gt;
+            &lt;h2 className="text-2xl mb-6"&gt;SSO Login with Google&lt;/h2&gt;
+            &lt;div className="bg-white px-4 py-2 rounded"&gt;
+              &lt;GoogleLogin
+                onSuccess={handleLoginSuccess}
+                onError={<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >err.message}</span>
+              /&gt;
+            &lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
@@ -247,7 +190,7 @@ export default Login;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-26T03:56:46.036Z
+                at 2025-03-26T05:40:10.077Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

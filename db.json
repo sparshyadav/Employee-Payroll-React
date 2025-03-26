@@ -24,6 +24,18 @@
       "salary": "₹30,000",
       "startDate": "09-06-2023",
       "notes": ""
+    },
+    {
+      "id": "b7b6",
+      "name": "Amandeep ",
+      "profileImage": "/Assets/person2.jpeg",
+      "gender": "male",
+      "departments": [
+        "engineer"
+      ],
+      "salary": "₹20,000",
+      "startDate": "16-10-2023",
+      "notes": ""
     }
   ]
 }
