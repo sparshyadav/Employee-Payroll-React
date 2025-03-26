@@ -104,6 +104,11 @@ class Registration extends Component {
     }
   };
 
+  countLines = (text) => {
+    if (!text) return 3;
+    return text.split('\n').length;
+  };
+
   render() {
     const { name, profileImage, gender, department, salary, day, month, year, notes, isEdit } = this.state;
 
@@ -308,7 +313,13 @@ class Registration extends Component {
                     name="notes"
                     value={notes}
                     onChange={this.handleInputChange}
-                    className="w-full md:w-2/3 h-24 border border-gray-300 rounded"
+                    className="w-full md:w-2/3 border border-gray-300 rounded"
+                    style={{
+                      height: `${Math.min(this.countLines(this.state.notes), 10) * 1.5 + 1.5}rem`,
+                      maxHeight: '15rem',
+                      overflowY: this.countLines(this.state.notes) > 10 ? 'auto' : 'hidden',
+                      resize: 'none',
+                    }}
                   />
                 </div>
 
