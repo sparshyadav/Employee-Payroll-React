@@ -30,7 +30,7 @@ class Registration extends Component {
       year: '',
       notes: '',
       isEdit: false,
-      // isModalOpen: false
+      isModalOpen: false
     };
   }
 
@@ -58,11 +58,6 @@ class Registration extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { id, name, profileImage, gender, department, salary, day, month, year, notes, isEdit } = this.state;
-
-    if (!name || !profileImage || !gender || department.length === 0 || !salary || !day || !month || !year) {
-      alert('Please fill in all required fields.');
-      return;
-    }
 
     const startDate = `${day}-${month}-${year}`;
     const employeeData = { name, profileImage, gender, departments: department, salary, startDate, notes };
@@ -127,7 +122,7 @@ class Registration extends Component {
             <form
               className="max-w-4xl mx-auto bg-white !p-8 flex flex-col gap-14 text-[#42515F]"
               id="employeeForm"
-              onSubmit={this.handleSubmit}
+            // onSubmit={this.handleSubmit}
             >
               <h2 className="text-3xl font-bold text-[#42515F] capitalize">
                 {isEdit ? 'Update Employee' : 'Employee Payroll Form'}
@@ -331,9 +326,9 @@ class Registration extends Component {
                   </div>
                   <div className="flex gap-4 flex-col md:flex-row w-full md:w-auto">
                     <button
-                      type="submit"
+                      type="button"
                       className="w-full md:w-auto !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-[#82A70C] hover:text-white"
-                      // onClick={this.setState({isModalOpen:true})}
+                      onClick={() => this.setState({ isModalOpen: true })}
                     >
                       {isEdit ? 'Update' : 'Submit'}
                     </button>
@@ -350,35 +345,28 @@ class Registration extends Component {
             </form>
           </div>
         </main>
-
-        {/* {this.state.isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div
-              className="absolute inset-0 bg-black opacity-50"
-              onClick={closeModal}
-            ></div>
-
-            <div className="bg-white rounded-lg shadow-xl z-50 w-96 p-6 relative">
-              <h2 className="text-xl font-bold mb-4 text-gray-800">Confirm User Addition</h2>
-              <p className="mb-6 text-gray-600">Are you sure you want to add this user to the system?</p>
-
-              <div className="flex justify-end space-x-4">
+        {this.state.isModalOpen && (
+          <>
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50"></div>
+            <div className="fixed p-8 top-1/2 left-1/2 rounded-md transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 ">
+              <h2 className="text-xl font-bold text-[#42515F]">Are you sure you want to add the employee?</h2>
+              <div className="flex justify-end gap-4 mt-4">
                 <button
-                  onClick={closeModal}
-                  className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition-colors"
+                  onClick={() => this.setState({ isModalOpen: false })}
+                  className="py-2 px-4 border border-[#969696] rounded cursor-pointer bg-[red] hover:bg-[#707070] text-white hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
-                  onClick={handleConfirmAddUser}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                  onClick={this.handleSubmit}
+                  className="py-2 px-4 border border-[#969696] rounded cursor-pointer bg-[#82A70C] hover:bg-[#707070] text-white hover:text-white"
                 >
-                  Confirm
+                  Add
                 </button>
               </div>
             </div>
-          </div>
-        )} */}
+          </>
+        )}
       </div>
     );
   }

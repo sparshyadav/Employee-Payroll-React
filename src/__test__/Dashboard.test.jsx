@@ -132,6 +132,10 @@ describe('Dashboard Component', () => {
     });
 
     fireEvent.click(screen.getByText('Edit'));
+    // fireEvent.click(screen.getByText('Delete'));
+    // fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
+
+
     expect(mockNavigate).toHaveBeenCalledWith('/registration', {
       state: { employee: mockEmployee, isEdit: true },
     });
@@ -164,6 +168,7 @@ describe('Dashboard Component', () => {
     });
 
     fireEvent.click(screen.getByText('Delete'));
+    // fireEvent.click(screen.getByRole('img', { name: 'Delete' }));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('http://localhost:3001/EmpList/1', { method: 'DELETE' });
@@ -196,6 +201,7 @@ describe('Dashboard Component', () => {
     });
 
     fireEvent.click(screen.getByText('Delete'));
+    // fireEvent.click(screen.getByRole('img', { name: 'Delete' }))
 
     await waitFor(() => {
       expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to delete employee', expect.any(Error));

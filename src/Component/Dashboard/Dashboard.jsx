@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
-import { Search, Plus } from 'lucide-react'
+import { Search, Plus, Trash2, Pencil } from 'lucide-react'
 
 // Custom HOC to inject navigate into class components
 const withNavigate = (Component) => {
@@ -34,7 +34,7 @@ class Dashboard extends Component {
         throw new Error('Failed to fetch employees');
       }
       const data = await response.json();
-      this.setState({ employees: data, loading: false });
+      this.setState({ employees: data.reverse(), loading: false });
     } catch (error) {
       this.setState({ error: error.message, loading: false });
     }
@@ -167,16 +167,17 @@ class Dashboard extends Component {
                         <td className="p-3">
                           <div className="flex gap-2.5">
                             <span
-                              className="text-blue-600 cursor-pointer"
+                              className="text-[#9CA3AF] hover:text-[#7CB342] cursor-pointer"
                               onClick={() => this.handleEdit(employee)}
+                              aria-label={"Edit"}
                             >
-                              Edit
+                              {/* <Pencil /> */}Edit
                             </span>
                             <span
-                              className="text-red-600 cursor-pointer"
+                              className="text-[#9CA3AF] hover:text-red-600 cursor-pointer"
                               onClick={() => this.handleDelete(employee.id)}
                             >
-                              Delete
+                              {/* <Trash2 aria-label={"Delete"} /> */}Delete
                             </span>
                           </div>
                         </td>

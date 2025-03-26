@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Registration from '../Component/Register/Registration'; 
@@ -72,6 +73,11 @@ describe('Registration Component', () => {
     fireEvent.click(screen.getByText(/Submit/i));
 
     await waitFor(() => {
+      expect(screen.getByText('Are you sure you want to add the employee?')).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByText('Add'));
+
+    await waitFor(() => {
       expect(axios.post).toHaveBeenCalledWith('http://localhost:3001/EmpList', {
         name: 'John Doe',
         profileImage: '/Assets/person1.jpeg',
@@ -104,6 +110,11 @@ describe('Registration Component', () => {
     fireEvent.change(document.querySelector('#year'), { target: { value: '2025' } });
 
     fireEvent.click(screen.getByText(/Submit/i));
+
+    await waitFor(() => {
+      expect(screen.getByText('Are you sure you want to add the employee?')).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByText('Add'));
 
     await waitFor(() => {
       expect(alertMock).toHaveBeenCalledWith('Something went wrong while saving employee data.');
