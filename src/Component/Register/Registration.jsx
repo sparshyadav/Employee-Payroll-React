@@ -193,6 +193,7 @@ class Registration extends Component {
                         <input
                           type="radio"
                           name="gender"
+                          required
                           value={genderOption}
                           checked={gender === genderOption}
                           onChange={this.handleInputChange}
@@ -217,6 +218,7 @@ class Registration extends Component {
                         <input
                           type="checkbox"
                           name="department"
+                          required
                           value={dept}
                           checked={department.includes(dept)}
                           onChange={this.handleInputChange}
@@ -235,6 +237,7 @@ class Registration extends Component {
                       id="salary"
                       name="salary"
                       value={salary}
+                      required
                       onChange={this.handleInputChange}
                       required
                       className="w-full md:w-1/2 h-10 p-2 border border-gray-300 rounded text-[#42515F]"
