@@ -321,11 +321,11 @@ class Registration extends Component {
                 </div>
 
                 <div className="flex justify-between items-center flex-col md:flex-row gap-4">
-                  <div>
+                  <div className="w-full md:w-auto">
                     <button
                       type="button"
                       onClick={() => this.props.navigate('/dashboard')}
-                      className="!w-full !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
+                      className="w-full md:w-auto !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
                     >
                       Cancel
                     </button>
@@ -333,14 +333,14 @@ class Registration extends Component {
                   <div className="flex gap-4 flex-col md:flex-row w-full md:w-auto">
                     <button
                       type="submit"
-                      className="!px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-[#82A70C] hover:text-white"
+                      className="w-full md:w-auto !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-[#82A70C] hover:text-white"
                     >
                       {isEdit ? 'Update' : 'Submit'}
                     </button>
                     <button
                       type="button"
                       onClick={this.handleReset}
-                      className="!px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
+                      className="w-full md:w-auto !px-12 !py-3 border border-gray-400 rounded bg-gray-200 hover:bg-gray-500 hover:text-white"
                     >
                       Reset
                     </button>
