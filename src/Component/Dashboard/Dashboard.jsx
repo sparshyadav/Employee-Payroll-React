@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
+import { Search, Plus } from 'lucide-react'
 
 // Custom HOC to inject navigate into class components
 const withNavigate = (Component) => {
@@ -46,8 +47,8 @@ class Dashboard extends Component {
   handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
       try {
-        const response = await fetch(`http://localhost:3001/EmpList/${id}`, { 
-          method: 'DELETE' 
+        const response = await fetch(`http://localhost:3001/EmpList/${id}`, {
+          method: 'DELETE'
         });
         if (!response.ok) {
           throw new Error('Failed to delete employee');
@@ -57,7 +58,7 @@ class Dashboard extends Component {
         }));
         console.log(`Employee with ID ${id} deleted`);
       } catch (error) {
-        alert('Failed to delete employee');
+        console.error('Failed to delete employee', error);
       }
     }
   };
@@ -84,18 +85,24 @@ class Dashboard extends Component {
           <div className="flex flex-col md:flex-row justify-between items-center mb-5 space-y-4 md:space-y-0">
             <h1 className="text-2xl font-normal text-gray-700">Employee Details</h1>
             <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-              <input
-                type="text"
-                id="searchInput"
-                placeholder="Search by name..."
-                value={searchTerm}
-                onChange={this.handleSearch}
-                className="p-2 border border-gray-300 rounded w-full md:w-[250px] text-sm focus:outline-none focus:border-[#82A70C] focus:ring-1 focus:ring-[#82A70C]"
-              />
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search by name..."
+                  value={searchTerm}
+                  onChange={this.handleSearch}
+                  className="p-2 border border-gray-300 rounded w-full md:w-[250px] text-sm focus:outline-none focus:border-[#82A70C] focus:ring-1 focus:ring-[#82A70C] pr-10"
+                />
+                <div className="absolute right-3">
+                  <Search className="text-gray-400 w-5 h-5" />
+                </div>
+              </div>
               <button
                 onClick={this.handleAddUser}
-                className="bg-[#8BC34A] text-white border-none rounded px-5 py-2.5 text-base hover:bg-[#7CB342]"
+                className="flex items-center gap-2 bg-[#8BC34A] text-white border-none rounded px-5 py-2.5 text-base hover:bg-[#7CB342] transition-colors"
               >
+                <Plus className="w-5 h-5" />
                 Add User
               </button>
             </div>
@@ -106,7 +113,7 @@ class Dashboard extends Component {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-gray-700 text-white">
-                    <th className="p-3 text-left">NAME</th>
+                    <th className="p-3 text-center">NAME</th>
                     <th className="p-3 text-left">GENDER</th>
                     <th className="p-3 text-left">DEPARTMENT</th>
                     <th className="p-3 text-left">SALARY</th>
@@ -149,7 +156,7 @@ class Dashboard extends Component {
                           {employee.departments.map((dept, idx) => (
                             <span
                               key={idx}
-                              className="inline-block bg-green-100 text-green-600 rounded-full px-2.5 py-1 text-xs mr-1.5"
+                              className="inline-block bg-[#E9FEA5] text-black rounded-[13px] px-2.5 py-1 text-xs mr-1.5"
                             >
                               {dept}
                             </span>
