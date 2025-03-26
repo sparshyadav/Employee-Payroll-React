@@ -7,7 +7,7 @@ const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const userName = localStorage.getItem('userName');
   const navigate = useNavigate();
-  
+
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -21,12 +21,12 @@ const Header = () => {
 
   return (
     <header className="w-full h-[9.25vh] bg-white relative">
-      <div className="flex justify-between items-center px-[5%] py-2">
+      <div className="flex justify-between items-center px-[5%] h-[100%] pt-[2px]">
         <div className="flex gap-1 items-center">
           <img src={logo} alt="logo" className="w-10 h-10" />
           <a href="/dashboard" className="no-underline">
             <p className="font-bold text-[#82A70C]">EMPLOYEE</p>
-            <p className="text-[#42515F] mt-[-8px]">PAYROLL</p>
+            <p className="text-[#42515F] mt-[-8px] font-bold">PAYROLL</p>
           </a>
         </div>
         

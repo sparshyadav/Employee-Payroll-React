@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84% </span>
+                <span class="strong">86.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/50</span>
+                <span class='fraction'>39/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48% </span>
+                <span class="strong">52.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/25</span>
+                <span class='fraction'>10/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.67% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/49</span>
+                <span class='fraction'>38/44</span>
             </div>
         
             
@@ -434,10 +434,7 @@
 <a name='L369'></a><a href='#L369'>369</a>
 <a name='L370'></a><a href='#L370'>370</a>
 <a name='L371'></a><a href='#L371'>371</a>
-<a name='L372'></a><a href='#L372'>372</a>
-<a name='L373'></a><a href='#L373'>373</a>
-<a name='L374'></a><a href='#L374'>374</a>
-<a name='L375'></a><a href='#L375'>375</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L372'></a><a href='#L372'>372</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -504,20 +501,14 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -603,7 +594,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">128x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -877,21 +871,15 @@ class Registration extends Component {
 &nbsp;
     try {
       <span class="missing-if-branch" title="if path not taken" >I</span>if (isEdit) {
-        const response = <span class="cstat-no" title="statement not covered" >await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);</span>
-<span class="cstat-no" title="statement not covered" >        if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >          alert('Employee updated successfully!');</span>
-        }
+<span class="cstat-no" title="statement not covered" >        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);</span>
       } else {
-        const response = await axios.post('http://localhost:3001/EmpList', employeeData);
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (response.status === 201) {
-          alert('Employee added successfully!');
-        }
+        await axios.post('http://localhost:3001/EmpList', employeeData);
       }
       this.handleReset();
       this.props.navigate('/dashboard');
     } catch (error) {
       console.error('Submission error:', error);
-      alert(`Something went wrong while ${isEdit ? <span class="branch-0 cbranch-no" title="branch not covered" >'updating' </span>: 'saving'} employee data.`);
+      // alert(`Something went wrong while ${isEdit ? 'updating' : 'saving'} employee data.`);
     }
   };
 &nbsp;
@@ -933,28 +921,30 @@ class Registration extends Component {
         &lt;main className="flex flex-col items-center w-full min-h-screen"&gt;
           &lt;div className="w-full bg-gray-100 !p-8 flex-1 justify-center items-center"&gt;
             &lt;form
-              className="max-w-4xl mx-auto bg-white !p-8 flex flex-col gap-14 text-[#42515F]"
+              className="items-center max-w-4xl mx-auto bg-white !p-4 flex flex-col gap-[15px] text-[#42515F]"
               id="employeeForm"
-            // onSubmit={this.handleSubmit}
             &gt;
-              &lt;h2 className="text-3xl font-bold text-[#42515F] capitalize"&gt;
-                {isEdit ? <span class="branch-0 cbranch-no" title="branch not covered" >'Update Employee' </span>: 'Employee Payroll Form'}
-              &lt;/h2&gt;
-              &lt;div className="flex flex-col gap-7 border border-red-600 !m-[25px]"&gt;
-                &lt;div className="flex items-center gap-4 flex-col md:flex-row"&gt;
+              &lt;div className='w-[80%] max-[550px]:w-[100%]'&gt;
+                &lt;h2 className="text-3xl font-bold text-[#42515F] capitalize !text-left"&gt;
+                  {isEdit ? <span class="branch-0 cbranch-no" title="branch not covered" >'Update Employee' </span>: 'Employee Payroll Form'}
+                &lt;/h2&gt;
+              &lt;/div&gt;
+              &lt;div className="min-w-[80%] flex flex-col gap-5 !m-[15px] max-[525px]:w-[100%] max-[525px]:!m-0"&gt;
+                &lt;div className="flex gap-4 flex-col md:flex-row"&gt;
                   &lt;label
                     htmlFor="name"
-                    className="min-w-[16%] border flex justify-start md:!text-left font-medium text-gray-700 transition-all duration-300"&gt;
+                    className="min-w-[20%] text-left md:text-left text-gray-700 font-medium"
+                  &gt;
                     Name
                   &lt;/label&gt;
                   &lt;div className="w-full md:w-2/3"&gt;
                     &lt;input
                       type="text"
+                      required
                       id="name"
                       name="name"
                       value={name}
                       onChange={this.handleInputChange}
-                      required
                       pattern="[A-Za-z\s]+"
                       title="Only letters are allowed"
                       placeholder="Enter your full name"
@@ -966,8 +956,8 @@ class Registration extends Component {
                   &lt;/div&gt;
                 &lt;/div&gt;
 &nbsp;
-                &lt;div className="flex items-center gap-2 flex-col md:flex-row"&gt;
-                  &lt;label className="flex justify-start w-full md:w-1/3 text-left md:text-right font-medium text-gray-700"&gt;
+                &lt;div className="flex  gap-2 flex-col md:flex-row"&gt;
+                  &lt;label className="min-w-[20%] flex justify-start  text-left md:text-right font-medium text-gray-700"&gt;
                     Profile Image
                   &lt;/label&gt;
                   &lt;div className="w-full md:w-2/3 flex flex-wrap justify-center md:justify-start gap-4"&gt;
@@ -983,6 +973,7 @@ class Registration extends Component {
                       &gt;
                         &lt;input
                           type="radio"
+                          required
                           name="profileImage"
                           value={img.value}
                           checked={profileImage === img.value}
@@ -1000,8 +991,8 @@ class Registration extends Component {
                   &lt;/div&gt;
                 &lt;/div&gt;
 &nbsp;
-                &lt;div className="flex items-center gap-4 md:flex-row flex-col"&gt;
-                  &lt;div className="md:w-1/3 w-full text-gray-700 font-medium"&gt;
+                &lt;div className="flex gap-4 md:flex-row flex-col"&gt;
+                  &lt;div className="min-w-[20%] text-gray-700 font-medium"&gt;
                     &lt;label&gt;Gender&lt;/label&gt;
                   &lt;/div&gt;
                   &lt;div className="flex gap-6 md:w-2/3 w-full md:flex-row"&gt;
@@ -1021,11 +1012,11 @@ class Registration extends Component {
                   &lt;/div&gt;
                 &lt;/div&gt;
 &nbsp;
-                &lt;div className="flex items-center gap-2 flex-col md:flex-row"&gt;
-                  &lt;label className="flex justify-start w-full md:w-1/3 text-left md:text-right font-medium text-gray-700"&gt;
+                &lt;div className="flex gap-2 flex-col md:flex-row"&gt;
+                  &lt;label className="flex justify-start min-w-[20%] text-left md:text-right font-medium text-gray-700"&gt;
                     Department
                   &lt;/label&gt;
-                  &lt;div className="flex gap-4 md:w-2/3 md:flex-row flex-wrap justify-center md:justify-start"&gt;
+                  &lt;div className="w-[100%] flex gap-4 md:w-[75%] md:flex-row flex-wrap justify-center md:justify-start"&gt;
                     {['HR', 'sales', 'finance', 'engineer', 'others'].map((dept) =&gt; (
                       &lt;label
                         key={dept}
@@ -1045,9 +1036,9 @@ class Registration extends Component {
                   &lt;/div&gt;
                 &lt;/div&gt;
 &nbsp;
-                &lt;div className="flex items-center gap-4 md:flex-row flex-col"&gt;
-                  &lt;label htmlFor="salary" className="w-full md:w-1/3 font-medium text-gray-700"&gt;Select Salary&lt;/label&gt;
-                  &lt;div className="md:w-2/3 w-full"&gt;
+                &lt;div className="flex gap-2 md:flex-row flex-col"&gt;
+                  &lt;label htmlFor="salary" className="min-w-[20%] font-medium text-gray-700"&gt;Select Salary&lt;/label&gt;
+                  &lt;div className="md:w-2/3 w-full "&gt;
                     &lt;select
                       id="salary"
                       name="salary"
@@ -1064,8 +1055,8 @@ class Registration extends Component {
                   &lt;/div&gt;
                 &lt;/div&gt;
 &nbsp;
-                &lt;div className="flex items-center gap-4 md:flex-row flex-col"&gt;
-                  &lt;label className="w-full md:w-1/3 font-medium text-gray-700"&gt;Start Date&lt;/label&gt;
+                &lt;div className="flex items-center gap-2 md:flex-row flex-col"&gt;
+                  &lt;label className="min-w-[20%] font-medium text-gray-700"&gt;Start Date&lt;/label&gt;
                   &lt;div className="flex gap-4 md:w-2/3 w-full flex-col md:flex-row"&gt;
                     &lt;select
                       id="day"
@@ -1116,14 +1107,14 @@ class Registration extends Component {
                   &lt;/div&gt;
                 &lt;/div&gt;
 &nbsp;
-                &lt;div className="flex gap-4 md:flex-row flex-col"&gt;
-                  &lt;label className="w-1/3 font-medium text-gray-700" htmlFor="notes"&gt;Notes&lt;/label&gt;
+                &lt;div className="flex gap-2 md:flex-row flex-col"&gt;
+                  &lt;label className="min-w-[20%] font-medium text-gray-700" htmlFor="notes"&gt;Notes&lt;/label&gt;
                   &lt;textarea
                     id="notes"
                     name="notes"
                     value={notes}
                     onChange={this.handleInputChange}
-                    className="w-full md:w-2/3 h-24 p-2 border border-gray-300 rounded"
+                    className="w-full md:w-2/3 h-24 border border-gray-300 rounded"
                   /&gt;
                 &lt;/div&gt;
 &nbsp;
@@ -1192,7 +1183,7 @@ export default withRouter(Registration);</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-26T18:54:21.645Z
+                at 2025-03-26T19:52:37.281Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

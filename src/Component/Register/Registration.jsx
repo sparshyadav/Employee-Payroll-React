@@ -64,21 +64,14 @@ class Registration extends Component {
 
     try {
       if (isEdit) {
-        const response = await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
-        if (response.status === 200) {
-          alert('Employee updated successfully!');
-        }
+        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
       } else {
-        const response = await axios.post('http://localhost:3001/EmpList', employeeData);
-        if (response.status === 201) {
-          alert('Employee added successfully!');
-        }
+        await axios.post('http://localhost:3001/EmpList', employeeData);
       }
       this.handleReset();
       this.props.navigate('/dashboard');
     } catch (error) {
       console.error('Submission error:', error);
-      alert(`Something went wrong while ${isEdit ? 'updating' : 'saving'} employee data.`);
     }
   };
 
@@ -120,27 +113,30 @@ class Registration extends Component {
         <main className="flex flex-col items-center w-full min-h-screen">
           <div className="w-full bg-gray-100 !p-8 flex-1 justify-center items-center">
             <form
-              className="max-w-4xl mx-auto bg-white !p-8 flex flex-col gap-14 text-[#42515F]"
+              className="items-center max-w-4xl mx-auto bg-white !p-4 flex flex-col gap-[15px] text-[#42515F]"
               id="employeeForm"
             >
-              <h2 className="text-3xl font-bold text-[#42515F] capitalize">
-                {isEdit ? 'Update Employee' : 'Employee Payroll Form'}
-              </h2>
-              <div className="flex flex-col gap-7 border border-red-600 !m-[25px]">
-                <div className="flex items-center gap-4 flex-col md:flex-row">
+              <div className='w-[80%] max-[550px]:w-[100%]'>
+                <h2 className="text-3xl font-bold text-[#42515F] capitalize !text-left">
+                  {isEdit ? 'Update Employee' : 'Employee Payroll Form'}
+                </h2>
+              </div>
+              <div className="min-w-[80%] flex flex-col gap-5 !m-[15px] max-[525px]:w-[100%] max-[525px]:!m-0">
+                <div className="flex gap-4 flex-col md:flex-row">
                   <label
                     htmlFor="name"
-                    className="min-w-[16%] border flex justify-start md:!text-left font-medium text-gray-700 transition-all duration-300">
+                    className="min-w-[20%] text-left md:text-left text-gray-700 font-medium"
+                  >
                     Name
                   </label>
                   <div className="w-full md:w-2/3">
                     <input
                       type="text"
+                      required
                       id="name"
                       name="name"
                       value={name}
                       onChange={this.handleInputChange}
-                      required
                       pattern="[A-Za-z\s]+"
                       title="Only letters are allowed"
                       placeholder="Enter your full name"
@@ -152,8 +148,8 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 flex-col md:flex-row">
-                  <label className="flex justify-start w-full md:w-1/3 text-left md:text-right font-medium text-gray-700">
+                <div className="flex  gap-2 flex-col md:flex-row">
+                  <label className="min-w-[20%] flex justify-start  text-left md:text-right font-medium text-gray-700">
                     Profile Image
                   </label>
                   <div className="w-full md:w-2/3 flex flex-wrap justify-center md:justify-start gap-4">
@@ -169,6 +165,7 @@ class Registration extends Component {
                       >
                         <input
                           type="radio"
+                          required
                           name="profileImage"
                           value={img.value}
                           checked={profileImage === img.value}
@@ -186,8 +183,8 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <div className="md:w-1/3 w-full text-gray-700 font-medium">
+                <div className="flex gap-4 md:flex-row flex-col">
+                  <div className="min-w-[20%] text-gray-700 font-medium">
                     <label>Gender</label>
                   </div>
                   <div className="flex gap-6 md:w-2/3 w-full md:flex-row">
@@ -207,11 +204,11 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 flex-col md:flex-row">
-                  <label className="flex justify-start w-full md:w-1/3 text-left md:text-right font-medium text-gray-700">
+                <div className="flex gap-2 flex-col md:flex-row">
+                  <label className="flex justify-start min-w-[20%] text-left md:text-right font-medium text-gray-700">
                     Department
                   </label>
-                  <div className="flex gap-4 md:w-2/3 md:flex-row flex-wrap justify-center md:justify-start">
+                  <div className="w-[100%] flex gap-4 md:w-[75%] md:flex-row flex-wrap justify-center md:justify-start">
                     {['HR', 'sales', 'finance', 'engineer', 'others'].map((dept) => (
                       <label
                         key={dept}
@@ -231,9 +228,9 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <label htmlFor="salary" className="w-full md:w-1/3 font-medium text-gray-700">Select Salary</label>
-                  <div className="md:w-2/3 w-full">
+                <div className="flex gap-2 md:flex-row flex-col">
+                  <label htmlFor="salary" className="min-w-[20%] font-medium text-gray-700">Select Salary</label>
+                  <div className="md:w-2/3 w-full ">
                     <select
                       id="salary"
                       name="salary"
@@ -250,8 +247,8 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 md:flex-row flex-col">
-                  <label className="w-full md:w-1/3 font-medium text-gray-700">Start Date</label>
+                <div className="flex items-center gap-2 md:flex-row flex-col">
+                  <label className="min-w-[20%] font-medium text-gray-700">Start Date</label>
                   <div className="flex gap-4 md:w-2/3 w-full flex-col md:flex-row">
                     <select
                       id="day"
@@ -302,14 +299,14 @@ class Registration extends Component {
                   </div>
                 </div>
 
-                <div className="flex gap-4 md:flex-row flex-col">
-                  <label className="w-1/3 font-medium text-gray-700" htmlFor="notes">Notes</label>
+                <div className="flex gap-2 md:flex-row flex-col">
+                  <label className="min-w-[20%] font-medium text-gray-700" htmlFor="notes">Notes</label>
                   <textarea
                     id="notes"
                     name="notes"
                     value={notes}
                     onChange={this.handleInputChange}
-                    className="w-full md:w-2/3 h-24 p-2 border border-gray-300 rounded"
+                    className="w-full md:w-2/3 h-24 border border-gray-300 rounded"
                   />
                 </div>
 
