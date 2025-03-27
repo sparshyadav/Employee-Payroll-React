@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { Search, Plus, Trash2, Pencil } from 'lucide-react'
+import PropTypes from 'prop-types';
 
 const withNavigate = (Component) => {
   return (props) => {
@@ -172,20 +173,20 @@ class Dashboard extends Component {
                         <td className="p-3">{employee.startDate}</td>
                         <td className="p-3">
                           <div className="flex gap-2.5">
-                            <span
+                            <button
                               className="text-[#9CA3AF] hover:text-[#7CB342] cursor-pointer"
                               onClick={() => this.handleEdit(employee)}
                               aria-label="Edit employee"
                             >
                               <Pencil />
-                            </span>
-                            <span
+                            </button>
+                            <button
                               className="text-[#9CA3AF] hover:text-red-600 cursor-pointer"
                               onClick={() => this.handleDelete(employee.id)}
                               aria-label="Delete employee"
                             >
                               <Trash2 aria-label={"Delete"} />
-                            </span>
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -229,5 +230,10 @@ class Dashboard extends Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  navigate: PropTypes.func.isRequired, // Ensure `navigate` is a required function prop
+};
+
 
 export default withNavigate(Dashboard);
