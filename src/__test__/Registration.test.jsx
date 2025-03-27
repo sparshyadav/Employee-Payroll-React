@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Registration from '../Component/Register/Registration'; 
+import Registration from '../Component/Registration'; 
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -24,23 +24,26 @@ jest.mock('react-router-dom', () => {
   return {
     ...originalModule,
     useNavigate: () => mockNavigate,
-    useLocation: () => ({ state: null }), 
+    useLocation: jest.fn(),
   };
 });
 
-const MockRegistration = () => (
+const MockRegistration = ({ location }) => (
   <BrowserRouter>
-    <Registration />
+    <Registration location={location} navigate={mockNavigate} />
   </BrowserRouter>
 );
 
 describe('Registration Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    render(<MockRegistration />);
   });
 
   test('renders form fields correctly', () => {
+    const { useLocation } = require('react-router-dom');
+    useLocation.mockReturnValue({ state: null });
+    render(<MockRegistration />);
+    
     expect(screen.getByLabelText(/Name/i)).toBeInTheDocument();
     expect(screen.getByText(/Profile Image/i)).toBeInTheDocument();
     expect(screen.getByText(/Gender/i)).toBeInTheDocument();
@@ -50,27 +53,57 @@ describe('Registration Component', () => {
     expect(screen.getByLabelText(/Notes/i)).toBeInTheDocument();
   });
 
+  test('populates form fields in edit mode', () => {
+    const mockLocation = {
+      state: {
+        isEdit: true,
+        employee: {
+          id: '1',
+          name: 'John Doe',
+          profileImage: '/Assets/person1.jpeg',
+          gender: 'male',
+          departments: ['HR'],
+          salary: '₹10,000',
+          startDate: '01-01-2025',
+          notes: 'Test note',
+        },
+      },
+    };
+    const { useLocation } = require('react-router-dom');
+    useLocation.mockReturnValue(mockLocation);
+    render(<MockRegistration location={mockLocation} />);
+
+    expect(screen.getByLabelText(/Name/i)).toHaveValue('John Doe');
+    expect(screen.getByRole('radio', { name: 'Male' })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'HR' })).toBeChecked();
+    expect(screen.getByLabelText(/Select Salary/i)).toHaveValue('₹10,000');
+    expect(document.getElementById('day')).toHaveValue('01');
+    expect(document.getElementById('month')).toHaveValue('01');
+    expect(document.getElementById('year')).toHaveValue('2025');
+    expect(screen.getByLabelText(/Notes/i)).toHaveValue('Test note');
+  });
 
   test('submits form successfully when all fields are valid', async () => {
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    const { useLocation } = require('react-router-dom');
+    useLocation.mockReturnValue({ state: null });
+    render(<MockRegistration />);
+    
     axios.post.mockResolvedValue({ status: 201 });
 
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'John Doe' } });
-    const profileRadio = document.querySelector('input[name="profileImage"]');
-    fireEvent.click(profileRadio);
-    const maleRadio = document.querySelector('input[name="gender"][value="male"]');
-    fireEvent.click(maleRadio);
-    fireEvent.click(screen.getByLabelText(/HR/i));
+    fireEvent.click(screen.getByRole('radio', { name: 'Profile 1' }));
+    fireEvent.click(screen.getByRole('radio', { name: 'Male' }));
+    fireEvent.click(screen.getByRole('checkbox', { name: 'HR' }));
     fireEvent.change(screen.getByLabelText(/Select Salary/i), { target: { value: '₹10,000' } });
-    fireEvent.change(document.querySelector('#day'), { target: { value: '01' } });
-    fireEvent.change(document.querySelector('#month'), { target: { value: '01' } });
-    fireEvent.change(document.querySelector('#year'), { target: { value: '2025' } });
+    fireEvent.change(document.getElementById('day'), { target: { value: '01' } });
+    fireEvent.change(document.getElementById('month'), { target: { value: '01' } });
+    fireEvent.change(document.getElementById('year'), { target: { value: '2025' } });
     fireEvent.change(screen.getByLabelText(/Notes/i), { target: { value: 'New joiner' } });
 
     fireEvent.click(screen.getByText(/Submit/i));
 
     await waitFor(() => {
-      expect(screen.getByText('Are you sure you want to add the employee?')).toBeInTheDocument();
+      expect(screen.getByText('Are you sure you want to Add the employee?')).toBeInTheDocument();
     });
     fireEvent.click(screen.getByText('Add'));
 
@@ -86,62 +119,66 @@ describe('Registration Component', () => {
       });
       expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
     });
-
-    alertMock.mockRestore();
   });
 
   test('handles API failure on submit gracefully', async () => {
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    const { useLocation } = require('react-router-dom');
+    useLocation.mockReturnValue({ state: null });
+    render(<MockRegistration />);
+    
     axios.post.mockRejectedValue(new Error('API Error'));
 
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'John Doe' } });
-    const profileRadio = document.querySelector('input[name="profileImage"]');
-    fireEvent.click(profileRadio);
-    const maleRadio = document.querySelector('input[name="gender"][value="male"]');
-    fireEvent.click(maleRadio);
-    fireEvent.click(screen.getByLabelText(/HR/i));
+    fireEvent.click(screen.getByRole('radio', { name: 'Profile 1' }));
+    fireEvent.click(screen.getByRole('radio', { name: 'Male' }));
+    fireEvent.click(screen.getByRole('checkbox', { name: 'HR' }));
     fireEvent.change(screen.getByLabelText(/Select Salary/i), { target: { value: '₹10,000' } });
-    fireEvent.change(document.querySelector('#day'), { target: { value: '01' } });
-    fireEvent.change(document.querySelector('#month'), { target: { value: '01' } });
-    fireEvent.change(document.querySelector('#year'), { target: { value: '2025' } });
+    fireEvent.change(document.getElementById('day'), { target: { value: '01' } });
+    fireEvent.change(document.getElementById('month'), { target: { value: '01' } });
+    fireEvent.change(document.getElementById('year'), { target: { value: '2025' } });
 
     fireEvent.click(screen.getByText(/Submit/i));
 
     await waitFor(() => {
-      expect(screen.getByText('Are you sure you want to add the employee?')).toBeInTheDocument();
+      expect(screen.getByText('Are you sure you want to Add the employee?')).toBeInTheDocument();
     });
     fireEvent.click(screen.getByText('Add'));
-
-    alertMock.mockRestore();
   });
 
   test('resets form fields when Reset button is clicked', () => {
+    const { useLocation } = require('react-router-dom');
+    useLocation.mockReturnValue({ state: null });
+    render(<MockRegistration />);
+    
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'Reset Test' } });
-    const maleRadio = document.querySelector('input[name="gender"][value="male"]');
-    fireEvent.click(maleRadio);
-    fireEvent.click(screen.getByLabelText(/HR/i));
-    fireEvent.change(document.querySelector('#day'), { target: { value: '01' } });
-    fireEvent.change(document.querySelector('#month'), { target: { value: '01' } });
-    fireEvent.change(document.querySelector('#year'), { target: { value: '2025' } });
+    fireEvent.click(screen.getByRole('radio', { name: 'Male' }));
+    fireEvent.click(screen.getByRole('checkbox', { name: 'HR' }));
+    fireEvent.change(document.getElementById('day'), { target: { value: '01' } });
+    fireEvent.change(document.getElementById('month'), { target: { value: '01' } });
+    fireEvent.change(document.getElementById('year'), { target: { value: '2025' } });
 
     expect(screen.getByLabelText(/Name/i)).toHaveValue('Reset Test');
-    expect(maleRadio).toBeChecked();
-    expect(screen.getByLabelText(/HR/i)).toBeChecked();
-    expect(document.querySelector('#day')).toHaveValue('01');
-    expect(document.querySelector('#month')).toHaveValue('01');
-    expect(document.querySelector('#year')).toHaveValue('2025');
+    expect(screen.getByRole('radio', { name: 'Male' })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'HR' })).toBeChecked();
+    expect(document.getElementById('day')).toHaveValue('01');
+    expect(document.getElementById('month')).toHaveValue('01');
+    expect(document.getElementById('year')).toHaveValue('2025');
 
     fireEvent.click(screen.getByText(/Reset/i));
 
     expect(screen.getByLabelText(/Name/i)).toHaveValue('');
-    expect(maleRadio).not.toBeChecked();
-    expect(screen.getByLabelText(/HR/i)).not.toBeChecked();
-    expect(document.querySelector('#day')).toHaveValue('');
-    expect(document.querySelector('#month')).toHaveValue('');
-    expect(document.querySelector('#year')).toHaveValue('');
+    expect(screen.getByRole('radio', { name: 'Male' })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'HR' })).not.toBeChecked();
+    expect(document.getElementById('day')).toHaveValue('');
+    expect(document.getElementById('month')).toHaveValue('');
+    expect(document.getElementById('year')).toHaveValue('');
   });
 
   test('navigates to dashboard when Cancel button is clicked', () => {
+    const { useLocation } = require('react-router-dom');
+    useLocation.mockReturnValue({ state: null });
+    render(<MockRegistration />);
+    
     fireEvent.click(screen.getByText(/Cancel/i));
     expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
   });

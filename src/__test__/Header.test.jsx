@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Header from '../Component/Header/Header';
+import Header from '../Component/Header';
 
 
 jest.mock('../../assets/logo.jpeg', () => 'mocked-logo');

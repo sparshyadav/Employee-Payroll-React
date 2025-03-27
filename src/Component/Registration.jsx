@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import person1 from '../../assets/person1.jpeg';
-import person2 from '../../assets/person2.jpeg';
-import person3 from '../../assets/person3.jpeg';
-import person4 from '../../assets/person4.jpeg';
-import Header from '../Header/Header';
+import PropTypes from 'prop-types';
+import person1 from '../assets/person1.jpeg';
+import person2 from '../assets/person2.jpeg';
+import person3 from '../assets/person3.jpeg';
+import person4 from '../assets/person4.jpeg';
+import Header from './Header';
 import axios from 'axios';
 
 const withRouter = (Component) => {
@@ -30,7 +31,7 @@ class Registration extends Component {
       year: '',
       notes: '',
       isEdit: false,
-      isModalOpen: false
+      isModalOpen: false,
     };
   }
 
@@ -64,7 +65,7 @@ class Registration extends Component {
 
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
+        await axios.put(`http://localhost:3001/EmpList/${id}, employeeData`);
       } else {
         await axios.post('http://localhost:3001/EmpList', employeeData);
       }
@@ -358,7 +359,7 @@ class Registration extends Component {
           <>
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50"></div>
             <div className="fixed p-8 top-1/2 left-1/2 rounded-md transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 ">
-              <h2 className="text-xl font-bold text-[#42515F]">Are you sure you want to add the employee?</h2>
+              <h2 className="text-xl font-bold text-[#42515F]">Are you sure you want to {isEdit ? "edit" : "Add"} the employee?</h2>
               <div className="flex justify-end gap-4 mt-4">
                 <button
                   onClick={() => this.setState({ isModalOpen: false })}
@@ -370,7 +371,7 @@ class Registration extends Component {
                   onClick={this.handleSubmit}
                   className="py-2 px-4 border border-[#969696] rounded cursor-pointer bg-[#82A70C] hover:bg-[#707070] text-white hover:text-white"
                 >
-                  Add
+                  {isEdit ? "Edit" : "Add"}
                 </button>
               </div>
             </div>
@@ -380,5 +381,25 @@ class Registration extends Component {
     );
   }
 }
+
+// Add PropTypes validation
+Registration.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      isEdit: PropTypes.bool,
+      employee: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        profileImage: PropTypes.string,
+        gender: PropTypes.string,
+        departments: PropTypes.arrayOf(PropTypes.string),
+        salary: PropTypes.string,
+        startDate: PropTypes.string,
+        notes: PropTypes.string,
+      }),
+    }),
+  }),
+  navigate: PropTypes.func.isRequired,
+};
 
 export default withRouter(Registration);

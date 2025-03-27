@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../Header/Header';
+import Header from './Header';
 import { Search, Plus, Trash2, Pencil } from 'lucide-react'
 
 const withNavigate = (Component) => {
@@ -62,7 +62,7 @@ class Dashboard extends Component {
         employees: prevState.employees.filter(emp => emp.id !== employeeIdToDelete)
       }));
 
-      this.setState({isModalOpen: false});
+      this.setState({ isModalOpen: false });
       console.log(`Employee with ID ${employeeIdToDelete} deleted`);
     } catch (error) {
       console.error('Failed to delete employee', error);
@@ -119,7 +119,9 @@ class Dashboard extends Component {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-gray-700 text-white">
-                    <th className="p-3 text-center">NAME</th>
+                    <th className="p-4"></th>
+                    <th className="text-left p-3">NAME</th>
+
                     <th className="p-3 text-left">GENDER</th>
                     <th className="p-3 text-left">DEPARTMENT</th>
                     <th className="p-3 text-left">SALARY</th>
@@ -147,16 +149,14 @@ class Dashboard extends Component {
                         className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
                       >
                         <td className="p-3">
-                          <div className="flex items-center">
                             <img
                               src={employee.profileImage}
                               alt={employee.name}
                               className="w-10 h-10 rounded-full object-cover mr-2.5"
                               onError={(e) => (e.target.src = 'https://via.placeholder.com/40')}
                             />
-                            {employee.name}
-                          </div>
                         </td>
+                        <td className="p-3">{employee.name}</td>
                         <td className="p-3">{employee.gender}</td>
                         <td className="p-3">
                           {employee.departments.map((dept, idx) => (
@@ -181,9 +181,9 @@ class Dashboard extends Component {
                             </span>
                             <span
                               className="text-[#9CA3AF] hover:text-red-600 cursor-pointer"
-                              onClick={() => this.handleDelete(employee.id)}                         
+                              onClick={() => this.handleDelete(employee.id)}
                               aria-label="Delete employee"
-                              >
+                            >
                               <Trash2 aria-label={"Delete"} />
                             </span>
                           </div>

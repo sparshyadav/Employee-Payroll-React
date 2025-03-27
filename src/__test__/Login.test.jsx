@@ -4,7 +4,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
-import Login from '../Component/Login/Login.jsx';
+import Login from '../Component/Login.jsx';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

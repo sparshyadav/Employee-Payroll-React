@@ -2,9 +2,9 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Dashboard from '../Component/Dashboard/Dashboard';
+import Dashboard from '../Component/Dashboard';
 
-jest.mock('../Component/Header/Header', () => () => <div data-testid="mock-header">Header</div>);
+jest.mock('../Component/Header', () => () => <div data-testid="mock-header">Header</div>);
 
 
 global.fetch = jest.fn();
