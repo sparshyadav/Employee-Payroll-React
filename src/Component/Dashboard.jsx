@@ -64,9 +64,8 @@ class Dashboard extends Component {
       }));
 
       this.setState({ isModalOpen: false });
-      console.log(`Employee with ID ${employeeIdToDelete} deleted`);
     } catch (error) {
-      console.error('Failed to delete employee', error);
+      console.error('Failed to delete employee', error); 
     }
   };
 
@@ -131,38 +130,45 @@ class Dashboard extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {loading ? (
-                    <tr>
-                      <td colSpan="6" className="p-3 text-center text-gray-500">
-                        Loading employees...
-                      </td>
-                    </tr>
-                  ) : error ? (
-                    <tr>
-                      <td colSpan="6" className="p-3 text-center text-red-500">
-                        Error: {error}
-                      </td>
-                    </tr>
-                  ) : filteredEmployees.length > 0 ? (
-                    filteredEmployees.map((employee, index) => (
+
+                  {
+                    loading && (
+                      <tr>
+                        <td colSpan="6" className="p-3 text-center text-gray-500">
+                          Loading employees...
+                        </td>
+                      </tr>
+                    )
+                  }
+                  {
+                    !loading && error && (
+                      <tr>
+                        <td colSpan="6" className="p-3 text-center text-red-500">
+                          Error: {error}
+                        </td>
+                      </tr>
+                    )
+                  }
+                  {
+                    !loading && !error && filteredEmployees.length > 0 && filteredEmployees.map((employee, index) => (
                       <tr
                         key={employee.id}
                         className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
                       >
                         <td className="p-3">
-                            <img
-                              src={employee.profileImage}
-                              alt={employee.name}
-                              className="w-10 h-10 rounded-full object-cover mr-2.5"
-                              onError={(e) => (e.target.src = 'https://via.placeholder.com/40')}
-                            />
+                          <img
+                            src={employee.profileImage}
+                            alt={employee.name}
+                            className="w-10 h-10 rounded-full object-cover mr-2.5"
+                            onError={(e) => (e.target.src = 'https://via.placeholder.com/40')}
+                          />
                         </td>
                         <td className="p-3">{employee.name}</td>
                         <td className="p-3">{employee.gender}</td>
                         <td className="p-3">
-                          {employee.departments.map((dept, idx) => (
+                          {employee.departments.map((dept) => (
                             <span
-                              key={idx}
+                              key={dept}
                               className="inline-block bg-[#E9FEA5] text-black rounded-[13px] px-2.5 py-1 text-xs mr-1.5"
                             >
                               {dept}
@@ -191,13 +197,16 @@ class Dashboard extends Component {
                         </td>
                       </tr>
                     ))
-                  ) : (
-                    <tr>
-                      <td colSpan="6" className="p-3 text-center text-gray-500">
-                        No employees found
-                      </td>
-                    </tr>
-                  )}
+                  }
+                  {
+                    !loading && !error && filteredEmployees.length === 0 && (
+                      <tr>
+                        <td colSpan="6" className="p-3 text-center text-gray-500">
+                          No employees found
+                        </td>
+                      </tr>
+                    )
+                  }
                 </tbody>
               </table>
             </div>

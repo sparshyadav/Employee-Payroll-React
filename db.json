@@ -26,8 +26,7 @@
       "notes": ""
     },
     {
-      "id": "3ab5",
-      "name": "Rakshit",
+      "name": "Rakshit Chauhan ",
       "profileImage": "/Assets/person2.jpeg",
       "gender": "female",
       "departments": [
@@ -35,7 +34,8 @@
       ],
       "salary": "₹20,000",
       "startDate": "16-09-2024",
-      "notes": ""
+      "notes": "",
+      "id": "3ab5"
     }
   ]
 }

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.48% </span>
+                <span class="strong">91.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/47</span>
+                <span class='fraction'>41/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">90.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>19/21</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/46</span>
+                <span class='fraction'>40/44</span>
             </div>
         
             
@@ -301,7 +301,17 @@
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
 <a name='L238'></a><a href='#L238'>238</a>
-<a name='L239'></a><a href='#L239'>239</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -367,9 +377,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -448,6 +458,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -486,6 +503,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -605,9 +625,9 @@ class Dashboard extends Component {
       }));
 &nbsp;
       this.setState({ isModalOpen: false });
-      console.log(`Employee with ID ${employeeIdToDelete} deleted`);
     } catch (error) {
-      console.error('Failed to delete employee', error);
+      // console.error('Failed to delete employee', error);
+      
     }
   };
 &nbsp;
@@ -672,38 +692,45 @@ class Dashboard extends Component {
                   &lt;/tr&gt;
                 &lt;/thead&gt;
                 &lt;tbody&gt;
-                  {loading ? (
-                    &lt;tr&gt;
-                      &lt;td colSpan="6" className="p-3 text-center text-gray-500"&gt;
-                        Loading employees...
-                      &lt;/td&gt;
-                    &lt;/tr&gt;
-                  ) : error ? (
-                    &lt;tr&gt;
-                      &lt;td colSpan="6" className="p-3 text-center text-red-500"&gt;
-                        Error: {error}
-                      &lt;/td&gt;
-                    &lt;/tr&gt;
-                  ) : filteredEmployees.length &gt; 0 ? (
-                    filteredEmployees.map((employee, index) =&gt; (
+&nbsp;
+                  {
+                    loading &amp;&amp; (
+                      &lt;tr&gt;
+                        &lt;td colSpan="6" className="p-3 text-center text-gray-500"&gt;
+                          Loading employees...
+                        &lt;/td&gt;
+                      &lt;/tr&gt;
+                    )
+                  }
+                  {
+                    !loading &amp;&amp; error &amp;&amp; (
+                      &lt;tr&gt;
+                        &lt;td colSpan="6" className="p-3 text-center text-red-500"&gt;
+                          Error: {error}
+                        &lt;/td&gt;
+                      &lt;/tr&gt;
+                    )
+                  }
+                  {
+                    !loading &amp;&amp; !error &amp;&amp; filteredEmployees.length &gt; 0 &amp;&amp; filteredEmployees.map((employee, index) =&gt; (
                       &lt;tr
                         key={employee.id}
                         className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
                       &gt;
                         &lt;td className="p-3"&gt;
-                            &lt;img
-                              src={employee.profileImage}
-                              alt={employee.name}
-                              className="w-10 h-10 rounded-full object-cover mr-2.5"
-                              onError={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; (<span class="cstat-no" title="statement not covered" >e.target.src = 'https://via.placeholder.com/40')</span>}
-                            /&gt;
+                          &lt;img
+                            src={employee.profileImage}
+                            alt={employee.name}
+                            className="w-10 h-10 rounded-full object-cover mr-2.5"
+                            onError={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; (<span class="cstat-no" title="statement not covered" >e.target.src = 'https://via.placeholder.com/40')</span>}
+                          /&gt;
                         &lt;/td&gt;
                         &lt;td className="p-3"&gt;{employee.name}&lt;/td&gt;
                         &lt;td className="p-3"&gt;{employee.gender}&lt;/td&gt;
                         &lt;td className="p-3"&gt;
-                          {employee.departments.map((dept, idx) =&gt; (
+                          {employee.departments.map((dept) =&gt; (
                             &lt;span
-                              key={idx}
+                              key={dept}
                               className="inline-block bg-[#E9FEA5] text-black rounded-[13px] px-2.5 py-1 text-xs mr-1.5"
                             &gt;
                               {dept}
@@ -732,13 +759,16 @@ class Dashboard extends Component {
                         &lt;/td&gt;
                       &lt;/tr&gt;
                     ))
-                  ) : (
-                    &lt;tr&gt;
-                      &lt;td colSpan="6" className="p-3 text-center text-gray-500"&gt;
-                        No employees found
-                      &lt;/td&gt;
-                    &lt;/tr&gt;
-                  )}
+                  }
+                  {
+                    !loading &amp;&amp; !error &amp;&amp; filteredEmployees.length === 0 &amp;&amp; (
+                      &lt;tr&gt;
+                        &lt;td colSpan="6" className="p-3 text-center text-gray-500"&gt;
+                          No employees found
+                        &lt;/td&gt;
+                      &lt;/tr&gt;
+                    )
+                  }
                 &lt;/tbody&gt;
               &lt;/table&gt;
             &lt;/div&gt;
@@ -784,7 +814,7 @@ export default withNavigate(Dashboard);</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-27T06:22:48.074Z
+                at 2025-03-27T08:48:27.061Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

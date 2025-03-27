@@ -36,9 +36,8 @@ class Registration extends Component {
   }
 
   componentDidMount() {
-    const { location } = this.props;
-    if (location.state && location.state.isEdit && location.state.employee) {
-      const { employee } = location.state;
+    const employee = this.props.location?.state?.employee;
+    if (this.props.location?.state?.isEdit && employee) {
       const [day, month, year] = employee.startDate.split('-');
       this.setState({
         id: employee.id,
@@ -65,7 +64,7 @@ class Registration extends Component {
 
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:3001/EmpList/${id}, employeeData`);
+        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
       } else {
         await axios.post('http://localhost:3001/EmpList', employeeData);
       }
@@ -160,13 +159,13 @@ class Registration extends Component {
                   </label>
                   <div className="w-full md:w-2/3 flex flex-wrap justify-center md:justify-start gap-4">
                     {[
-                      { value: '/Assets/person1.jpeg', src: person2 },
-                      { value: '/Assets/person2.jpeg', src: person1 },
-                      { value: '/Assets/person3.jpeg', src: person3 },
-                      { value: '/Assets/person4.jpeg', src: person4 },
-                    ].map((img, index) => (
+                      { value: '/Assets/person1.jpeg', src: person2, label: 'Profile 1' },
+                      { value: '/Assets/person2.jpeg', src: person1, label: 'Profile 2' },
+                      { value: '/Assets/person3.jpeg', src: person3, label: 'Profile 3' },
+                      { value: '/Assets/person4.jpeg', src: person4, label: 'Profile 4' },
+                    ].map((img) => (
                       <label
-                        key={index}
+                        key={img.value}
                         className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-all duration-300"
                       >
                         <input
@@ -180,7 +179,7 @@ class Registration extends Component {
                         />
                         <img
                           src={img.src}
-                          alt={`Profile ${index + 1}`}
+                          alt={img.label}
                           className="w-10 h-10 rounded-full object-cover border-2 transition-all duration-300 
           ${profileImage === img.value ? 'border-blue-500' : 'border-transparent'}"
                         />
@@ -382,7 +381,6 @@ class Registration extends Component {
   }
 }
 
-// Add PropTypes validation
 Registration.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({

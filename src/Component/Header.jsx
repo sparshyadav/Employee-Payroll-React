@@ -38,7 +38,7 @@ const Header = () => {
               onClick={toggleDropdown}
             >
               <img 
-                src={userIcon} 
+                src={userIcon}   
                 alt="User Icon" 
                 className="w-8 h-8 cursor-pointer" 
               />
