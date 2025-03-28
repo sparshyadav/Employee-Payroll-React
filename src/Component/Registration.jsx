@@ -7,6 +7,7 @@ import person3 from '../assets/person3.jpeg';
 import person4 from '../assets/person4.jpeg';
 import Header from './Header';
 import axios from 'axios';
+const URL=import.meta.env.BASE_URL;
 
 const withRouter = (Component) => {
   return (props) => {
@@ -64,9 +65,9 @@ class Registration extends Component {
 
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
+        await axios.put(`${URL}/${id}`, employeeData);
       } else {
-        await axios.post('http://localhost:3001/EmpList', employeeData);
+        await axios.post(`${URL}`, employeeData);
       }
       this.handleReset();
       this.props.navigate('/dashboard');

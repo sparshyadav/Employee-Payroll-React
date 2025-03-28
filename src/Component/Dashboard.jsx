@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { Search, Plus, Trash2, Pencil } from 'lucide-react'
 import PropTypes from 'prop-types';
+const URL=import.meta.env.BASE_URL;
 
 const withNavigate = (Component) => {
   return (props) => {
@@ -31,7 +32,7 @@ class Dashboard extends Component {
   fetchEmployees = async () => {
     this.setState({ loading: true });
     try {
-      const response = await fetch('http://localhost:3001/EmpList');
+      const response = await fetch(`${URL}`);
       if (!response.ok) {
         throw new Error('Failed to fetch employees');
       }
@@ -53,7 +54,7 @@ class Dashboard extends Component {
   confirmDelete = async () => {
     const { employeeIdToDelete } = this.state;
     try {
-      const response = await fetch(`http://localhost:3001/EmpList/${employeeIdToDelete}`, {
+      const response = await fetch(`${employeeIdToDelete}`, {
         method: 'DELETE'
       });
       if (!response.ok) {
