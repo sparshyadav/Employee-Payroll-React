@@ -2,7 +2,7 @@ import React from 'react';
 import { FaGithub } from 'react-icons/fa';
 
 const GitHubLogin = ({ onSuccess, onError }) => {
-  const githubClientId = "Ov23li5b7mp2u818X1GH"; // Replace with your Client ID
+  const githubClientId = "Ov23li5b7mp2u818X1GH"; 
   const redirectUri = "http://localhost:5174/callback";
   
   const handleGitHubLogin = () => {

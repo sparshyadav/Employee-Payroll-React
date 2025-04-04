@@ -9,7 +9,6 @@ const Callback = () => {
     const code = urlParams.get('code');
 
     if (code) {
-      // Exchange code for access token
       fetch('http://localhost:3000/api/auth/github/callback', {
         method: 'POST',
         headers: {
