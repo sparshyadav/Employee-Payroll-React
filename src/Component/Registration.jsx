@@ -65,9 +65,9 @@ class Registration extends Component {
 
     try {
       if (isEdit) {
-        await axios.put(`${URL}/${id}`, employeeData);
+        await axios.put(`http://localhost:3001/EmpList/${id}`, employeeData);
       } else {
-        await axios.post(`${URL}`, employeeData);
+        await axios.post(`http://localhost:3001/EmpList`, employeeData);
       }
       this.handleReset();
       this.props.navigate('/dashboard');

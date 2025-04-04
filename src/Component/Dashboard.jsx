@@ -32,7 +32,7 @@ class Dashboard extends Component {
   fetchEmployees = async () => {
     this.setState({ loading: true });
     try {
-      const response = await fetch(`${URL}`);
+      const response = await fetch(`http://localhost:3001/EmpList`);
       if (!response.ok) {
         throw new Error('Failed to fetch employees');
       }
